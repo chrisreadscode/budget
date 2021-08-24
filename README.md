@@ -2,6 +2,8 @@
 
 A web program to show how much money you can spend today to stay on budget.
 
+![](/budget.png)
+
 ## LiveLink
 
 https://budget-vie6adzth-rcreadii.vercel.app
