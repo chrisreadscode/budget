@@ -2,7 +2,7 @@
 
 A web program to show how much money you can spend today to stay on budget.
 
-![](/budget.png)
+![](/budgetScreenshot.png)
 
 ## LiveLink
 
