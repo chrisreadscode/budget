@@ -10,4 +10,6 @@ https://budget-vie6adzth-rcreadii.vercel.app
 
 ## Developers
 
-To run locally: npm run dev
+To run locally:
+  1. Download the repository
+  2. In the repo folder run: npm run dev
