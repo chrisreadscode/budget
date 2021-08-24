@@ -3,13 +3,85 @@ import {
   Button,
   Input,
   Header,
+  Form,
   Label,
   Popup,
   Segment,
 } from "semantic-ui-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [activeButton, setActiveButton] = useState(100);
+  const [money, setMoney] = useState(60);
+  const [debt, setDebt] = useState(-100);
+  const [save, setSave] = useState(500);
+  const [showDebt, setShowDebt] = useState(false);
+  const [showMinus, setShowMinus] = useState(false);
+  const [dailyAmount, setDailyAmount] = useState();
+  const [storeDailyAmount, setStoreDailyAmount] = useState(0);
+
+  const buttons = [1, 5, 20, 50, 100];
   const square = { width: 200, height: 200 };
+
+  const makeCalculatorButton = (value) => {
+    return (
+      <Button
+        color={activeButton === value ? (showMinus ? "red" : "green") : "black"}
+        onClick={(state) => {
+          setActiveButton(value);
+          updateMoney(value);
+        }}
+      >
+        {value}
+      </Button>
+    );
+  };
+
+  const updateMoney = (value) => {
+    if (showMinus) value = -value;
+    const newMoney = money + value;
+    setMoney(newMoney);
+  };
+
+  const updateDailyAmount = (e) => {
+    e.preventDefault();
+
+    let newDailyAmount = parseInt(e.target.elements[0].value);
+    console.log(newDailyAmount);
+    if (newDailyAmount) setStoreDailyAmount(newDailyAmount);
+
+    let changeInAmount = 0;
+    if (newDailyAmount < storeDailyAmount)
+      changeInAmount -= storeDailyAmount - newDailyAmount;
+    else if (storeDailyAmount < newDailyAmount)
+      changeInAmount += newDailyAmount - storeDailyAmount;
+    newDailyAmount = "";
+
+    setMoney(money + changeInAmount);
+    setDailyAmount(newDailyAmount);
+  };
+
+  const updateDebtAndSave = () => {
+    if (showDebt) {
+      let newDebt = debt + money;
+      if (newDebt > 0) {
+        const newSave = save + newDebt;
+        setSave(newSave);
+        newDebt = 0;
+      }
+      setDebt(newDebt);
+    } else {
+      let newSave = save + money;
+      if (newSave < 0) {
+        const newDebt = debt + newSave;
+        setDebt(newDebt);
+        newSave = 0;
+      }
+
+      setSave(newSave);
+    }
+    setMoney(0);
+  };
 
   return (
     <div className="container">
@@ -26,31 +98,28 @@ export default function Home() {
         <h1 className="title">Welcome to Budget!</h1>
 
         <br />
-        <p className="description">
-          Get started by setting a daily amount available to withdraw
-          <br />
-          near the bottom of the screen
-        </p>
+        <p className="description">Start by clicking to discover features</p>
 
         <div>
           <Button
-            // color="red"
+            color={showDebt ? "red" : "green"}
             icon="add"
             floated="right"
+            onClick={(event) => setShowDebt(!showDebt)}
             style={{ position: "relative", right: "125px" }}
           >
-            $100 Debt
+            ${showDebt ? `${Math.abs(debt)} Debt` : `${save} Save`}
           </Button>
-          {/* <span>Hi</span> */}
 
           <Popup
-            content="Add today's sum to your debt"
+            content={`Add today's sum to your ${showDebt ? "debt" : "save"}`}
             size="big"
             trigger={
               <Button
                 circular
                 icon="add"
                 floated="right"
+                onClick={updateDebtAndSave}
                 style={{ position: "relative", left: "200px" }}
               />
             }
@@ -65,8 +134,8 @@ export default function Home() {
             trigger={
               <Segment circular inverted style={square}>
                 <Header as="h1">
-                  $60
-                  <Header sub color="green">
+                  ${money}
+                  <Header sub color={money < 0 ? "red" : "green"}>
                     left today
                   </Header>
                 </Header>
@@ -77,31 +146,40 @@ export default function Home() {
         <br />
         <br />
         <div>
-          {/* <Segment> */}
-          <Button color="green">-/+</Button>
+          <Button
+            color={showMinus ? "red" : "green"}
+            onClick={(event) => setShowMinus(!showMinus)}
+          >
+            {showMinus ? "-" : "+"}
+          </Button>
           <Button.Group>
-            <Button color="black">1</Button>
-            <Button color="black">5</Button>
-            <Button color="black">2</Button>
-            <Button color="black">50</Button>
-            <Button color="black">100</Button>
+            {buttons.map((buttonValue) => makeCalculatorButton(buttonValue))}
           </Button.Group>
-          {/* </Segment> */}
         </div>
         <br />
         <br />
         <div>
-          <Input
-            labelPosition="left"
-            type="text"
-            placeholder="Daily Amount Available"
-          >
-            <Label>$</Label>
-            <input />
-          </Input>
-          <br />
-          <br />
-          <Button fluid>Submit</Button>
+          <Form onSubmit={updateDailyAmount}>
+            <Input
+              labelPosition="left"
+              type="text"
+              onChange={(state) => setDailyAmount(state.value)}
+              placeholder={
+                storeDailyAmount
+                  ? `${storeDailyAmount} Available A Day`
+                  : "Daily Amount Available"
+              }
+              value={dailyAmount}
+            >
+              <Label>$</Label>
+              <input />
+            </Input>
+            <br />
+            <br />
+            <Button fluid type="submit">
+              Submit
+            </Button>
+          </Form>
         </div>
 
         <br />
