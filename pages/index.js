@@ -1,15 +1,10 @@
 import Head from "next/head";
-import {
-  Button,
-  Input,
-  Header,
-  Form,
-  Label,
-  Popup,
-  Segment,
-} from "semantic-ui-react";
-import useMoneyLogic from "../components/useMoneyLogic.js/useMoneyLogic";
-import { useState } from "react";
+import CashBubble from "../components/CashBubble";
+import CashCalculator from "../components/CashCalculator";
+import DailyCash from "../components/DailyCash";
+import MyHeader from "../components/Header";
+import TopBar from "../components/TopBar";
+import useMoneyLogic from "../components/useMoneyLogic";
 
 export default function Home() {
   const {
@@ -21,34 +16,6 @@ export default function Home() {
     debt,
     save,
   } = useMoneyLogic();
-  const [activeCalculatorButton, setActiveCalculatorButton] = useState(100);
-  const [dailyCashComponent, setDailyCashComponent] = useState("");
-  const [showDebt, setShowDebt] = useState(false);
-  const [showMinus, setShowMinus] = useState(false);
-
-  const buttons = [1, 5, 20, 50, 100];
-  const squareBubble = { width: 200, height: 200 };
-
-  const makeCalculatorButton = (value) => {
-    return (
-      <Button
-        color={
-          activeCalculatorButton === value
-            ? showMinus
-              ? "red"
-              : "green"
-            : "black"
-        }
-        key={value}
-        onClick={(state) => {
-          setActiveCalculatorButton(value);
-          updateCalculatorCash(value, showMinus);
-        }}
-      >
-        {value}
-      </Button>
-    );
-  };
 
   return (
     <div className="container">
@@ -62,92 +29,11 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">Welcome to Budget!</h1>
-
-        <br />
-        <p className="description">Start by clicking to discover features</p>
-
-        <div>
-          <Button
-            color={showDebt ? "red" : "green"}
-            floated="right"
-            onClick={(event) => setShowDebt(!showDebt)}
-            style={{ position: "relative", right: "125px" }}
-          >
-            ${showDebt ? `${Math.abs(debt)} Debt` : `${save} Save`}
-          </Button>
-
-          <Popup
-            content={`Add today's cash to your ${showDebt ? "debt" : "save"}`}
-            trigger={
-              <Button
-                circular
-                icon="add"
-                floated="right"
-                onClick={(state) => updateDebtOrSave(showDebt)}
-                style={{ position: "relative", left: "200px" }}
-              />
-            }
-          />
-        </div>
-
-        <div>
-          <br />
-          <Popup
-            content="Click to add anything recurring"
-            trigger={
-              <Segment circular inverted style={squareBubble}>
-                <Header as="h1">
-                  ${cash}
-                  <Header sub color={cash < 0 ? "red" : "green"}>
-                    left today
-                  </Header>
-                </Header>
-              </Segment>
-            }
-          />
-        </div>
-        <br />
-        <br />
-        <div>
-          <Button
-            color={showMinus ? "red" : "green"}
-            onClick={(event) => setShowMinus(!showMinus)}
-          >
-            {showMinus ? "-" : "+"}
-          </Button>
-          <Button.Group>
-            {buttons.map((buttonValue) => makeCalculatorButton(buttonValue))}
-          </Button.Group>
-        </div>
-        <br />
-        <br />
-        <div>
-          <Form onSubmit={(e) => updateDailyCash(e, setDailyCashComponent)}>
-            <Input
-              labelPosition="left"
-              type="text"
-              onChange={(state) => setDailyCashComponent(state.value)}
-              placeholder={
-                dailyCash || dailyCash === 0
-                  ? `$${dailyCash} Cash Released Per Day`
-                  : "Enter Daily Cash Release"
-              }
-              value={dailyCashComponent}
-            >
-              <Label>$</Label>
-              <input />
-            </Input>
-            <br />
-            <br />
-            <Button fluid type="submit">
-              Submit
-            </Button>
-          </Form>
-        </div>
-
-        <br />
-        <br />
+        <MyHeader />
+        <TopBar debt={debt} save={save} updateDebtOrSave={updateDebtOrSave} />
+        <CashBubble cash={cash} />
+        <CashCalculator updateCalculatorCash={updateCalculatorCash} />
+        <DailyCash dailyCash={dailyCash} updateDailyCash={updateDailyCash} />
       </main>
 
       <footer>
@@ -203,17 +89,6 @@ export default function Home() {
           text-decoration: none;
         }
 
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
         .title {
           margin: 0;
           line-height: 1.15;
@@ -230,24 +105,8 @@ export default function Home() {
           font-size: 1.5rem;
         }
 
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
         .logo {
           height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
         }
       `}</style>
 
