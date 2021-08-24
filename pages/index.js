@@ -47,8 +47,8 @@ export default function Home() {
     e.preventDefault();
 
     let newDailyAmount = parseInt(e.target.elements[0].value);
-    console.log(newDailyAmount);
-    if (newDailyAmount) setStoreDailyAmount(newDailyAmount);
+    if (newDailyAmount || newDailyAmount === 0)
+      setStoreDailyAmount(newDailyAmount);
 
     let changeInAmount = 0;
     if (newDailyAmount < storeDailyAmount)
@@ -63,24 +63,24 @@ export default function Home() {
 
   const updateDebtAndSave = () => {
     if (showDebt) {
-      let newDebt = debt + money;
+      const newDebt = money + debt;
       if (newDebt > 0) {
-        const newSave = save + newDebt;
-        setSave(newSave);
+        setMoney(newDebt);
         newDebt = 0;
+      } else {
+        setMoney(0);
       }
       setDebt(newDebt);
     } else {
-      let newSave = save + money;
+      const newSave = save + money;
       if (newSave < 0) {
-        const newDebt = debt + newSave;
-        setDebt(newDebt);
+        setMoney(newSave);
         newSave = 0;
+      } else {
+        setMoney(0);
       }
-
       setSave(newSave);
     }
-    setMoney(0);
   };
 
   return (
