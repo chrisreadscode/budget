@@ -4,7 +4,7 @@ import React from "react";
 export default function Header() {
   return (
     <div>
-      <h1 className="title">Welcome to Budget!</h1>
+      <h1 className="title">Welcome to $Left Today!</h1>
 
       <br />
       <p className="description">Start by clicking to discover features</p>
