@@ -1,6 +1,6 @@
 # budget (Working Title: Left Today)
 
-A web program to show how much money you can spend today and stay on budget.
+A web program to show how much money you have left to spend today to stay on budget.
 
 Designed to be able to be more easily transported to mobile and native app versions.
 
@@ -8,7 +8,7 @@ Designed to be able to be more easily transported to mobile and native app versi
 
 ## LiveLink
 
-https://budget-vie6adzth-rcreadii.vercel.app
+https://budget-3fpj9uqbn-rcreadii.vercel.app
 
 ## Developers
 
