@@ -3,8 +3,8 @@ import { useState } from "react";
 import CashBubble from "../components/CashBubble";
 import CashCalculator from "../components/CashCalculator";
 import DailyCash from "../components/DailyCash";
-import HomePageLedger from "../components/HomePageLedger";
 import MyHeader from "../components/Header";
+import NavBarLedger from "../components/NavBarLedger";
 import useLedger from "../components/useLedger";
 
 export default function Home() {
@@ -36,11 +36,12 @@ export default function Home() {
         {onHomePage ? (
           <>
             <div style={{ position: "relative" }}>
-              <HomePageLedger
+              <NavBarLedger
                 addDebt={addDebt}
                 addSavings={addSavings}
                 debt={debt}
                 savings={savings}
+                onHomePage={onHomePage}
                 setOnHomePage={setOnHomePage}
               />
             </div>
@@ -49,6 +50,16 @@ export default function Home() {
           </>
         ) : (
           <>
+            <div style={{ position: "relative" }}>
+              <NavBarLedger
+                addDebt={addDebt}
+                addSavings={addSavings}
+                debt={debt}
+                savings={savings}
+                onHomePage={onHomePage}
+                setOnHomePage={setOnHomePage}
+              />
+            </div>
             <DailyCash
               dailyCash={dailyCash}
               updateDailyCash={updateDailyCash}
