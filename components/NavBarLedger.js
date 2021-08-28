@@ -9,7 +9,6 @@ export default function NavBarLedger({
   onHomePage,
   setOnHomePage,
 }) {
-  console.log(onHomePage);
   return (
     <div style={{ position: "relative", textAlign: "left", width: "275px" }}>
       <div style={{ display: "inline-block", width: "125px" }}>
