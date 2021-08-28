@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Budget</title>
+        <title>$Left Today</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
@@ -53,7 +53,6 @@ export default function Home() {
             />
           </>
         )}
-        {/* <SwitchToForm onHomePage={onHomePage} setOnHomePage={setOnHomePage} /> */}
       </main>
 
       <footer>
