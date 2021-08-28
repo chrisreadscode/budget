@@ -2,27 +2,24 @@ import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
 
 export default function CashCalculator({ addCash }) {
-  const [calculatorAmount, setCalculatorAmount] = useState(100);
+  const [clickedValue, setClickedValue] = useState(100);
   const [minusSignOn, setMinusSignOn] = useState(false);
-  const calculatorButtons = [1, 5, 20, 50, 100];
+  const calculatorButtonValues = [1, 5, 20, 50, 100];
 
-  const createCalculatorButton = (buttonAmount) => {
+  const buttonColor = minusSignOn ? "red" : "green";
+
+  const createCalculatorButton = (buttonValue) => {
     return (
       <Button
-        color={
-          buttonAmount !== calculatorAmount
-            ? "black"
-            : minusSignOn
-            ? "red"
-            : "green"
-        }
-        key={buttonAmount}
+        color={buttonValue === clickedValue ? buttonColor : "black"}
+        key={buttonValue}
         onClick={(state) => {
-          setCalculatorAmount(buttonAmount);
+          addCash(buttonValue, minusSignOn);
+          setClickedValue(buttonValue);
         }}
         size="medium"
       >
-        {buttonAmount}
+        {buttonValue}
       </Button>
     );
   };
@@ -31,8 +28,8 @@ export default function CashCalculator({ addCash }) {
     <div>
       <div>
         <Button.Group>
-          {calculatorButtons.map((buttonAmount) =>
-            createCalculatorButton(buttonAmount)
+          {calculatorButtonValues.map((buttonValue) =>
+            createCalculatorButton(buttonValue)
           )}
         </Button.Group>
       </div>
@@ -40,8 +37,8 @@ export default function CashCalculator({ addCash }) {
       <div style={{ position: "relative", textAlign: "center" }}>
         <Button
           circular
-          color={minusSignOn ? "red" : "green"}
-          onClick={(event) => addCash(calculatorAmount, minusSignOn)}
+          color={buttonColor}
+          onClick={(event) => addCash(clickedValue, minusSignOn)}
           size="big"
         >
           {minusSignOn ? "subtract" : "add"}
