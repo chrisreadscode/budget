@@ -1,6 +1,4 @@
-# budget
-
-Working Title: Left Today
+# budget (Working Title: Left Today)
 
 A web program to show how much money you can spend today and stay on budget.
 
