@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Popup } from "semantic-ui-react";
 
-export default function TopBar({
+export default function HomePageLedger({
   addDebt,
   addSavings,
   debt,
@@ -13,7 +13,7 @@ export default function TopBar({
       <div style={{ display: "inline-block", width: "125px" }}>
         <Button.Group vertical>
           <Popup
-            content={`Total Savings: Click to Add Today's Amount`}
+            content={`Total Savings: Click to Add Left Today's Amount`}
             trigger={
               <Button
                 color="green"
@@ -27,7 +27,7 @@ export default function TopBar({
             }
           />
           <Popup
-            content={`Total Debt: Click to Add Today's Amount`}
+            content={`Total Debt: Click to Add Left Today's Amount`}
             trigger={
               <Button
                 color="red"
