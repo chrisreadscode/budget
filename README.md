@@ -4,7 +4,7 @@ A web program to show how much money you have left to spend today to stay on bud
 
 Designed to be able to be more easily transported to mobile and native app versions.
 
-![](/budgetScreenshot.png)
+![](/LeftToday.png)
 
 ## LiveLink
 
