@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-const calculateCalculatorCash = (cash, value, showMinus) => {
-  if (showMinus) value = -value;
-  return cash + value;
+const calculateAddCash = (cash, amount, minusSignOn) => {
+  if (minusSignOn) amount = -amount;
+  return cash + amount;
 };
 
 const calculateDebt = (cash, debt) => {
@@ -33,14 +33,14 @@ const calculateSave = (cash, save) => {
   return [_cash, _save];
 };
 
-export default function useMoneyLogic() {
+export default function useLedger() {
   const [cash, setCash] = useState(60);
   const [dailyCash, setDailyCash] = useState("");
   const [debt, setDebt] = useState(-100);
   const [save, setSave] = useState(500);
 
-  const updateCalculatorCash = (value, showMinus) => {
-    setCash(calculateCalculatorCash(cash, value, showMinus));
+  const addCash = (amount, minusSignOn) => {
+    setCash(calculateAddCash(cash, amount, minusSignOn));
   };
 
   const updateDailyCash = (e, setDailyCashComponent) => {
@@ -63,7 +63,7 @@ export default function useMoneyLogic() {
   };
 
   return {
-    updateCalculatorCash,
+    addCash,
     updateDailyCash,
     updateDebtOrSave,
     cash,

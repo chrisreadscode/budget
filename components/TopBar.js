@@ -1,31 +1,59 @@
-import React, { useState } from "react";
-import { Button, Popup, Segment } from "semantic-ui-react";
+import React from "react";
+import { Button, Popup } from "semantic-ui-react";
 
-export default function TopBar({ debt, save, updateDebtOrSave }) {
-  const [showDebt, setShowDebt] = useState(false);
-
+export default function TopBar({
+  debt,
+  save,
+  setOnHomePage,
+  updateDebtOrSave,
+}) {
   return (
-    <div>
-      {/* DebtSave */}
-      <Button
-        color={showDebt ? "red" : "green"}
-        floated="right"
-        onClick={(event) => setShowDebt(!showDebt)}
-        style={{ position: "relative", right: "125px" }}
-      >
-        ${showDebt ? `${Math.abs(debt)} Debt` : `${save} Save`}
-      </Button>
+    <div style={{ position: "relative", textAlign: "left", width: "275px" }}>
+      <div style={{ display: "inline-block", width: "125px" }}>
+        <Button.Group vertical>
+          <Popup
+            content={`Total Savings: Click to Add Today's Amount`}
+            trigger={
+              <Button
+                color="green"
+                compact
+                content={`$${save}`}
+                fluid
+                icon="plus"
+                onClick={(event) => updateDebtOrSave(false)}
+                style={{ display: "inline-block" }}
+              />
+            }
+          />
+          <Popup
+            content={`Total Debt: Click to Add Today's Amount`}
+            trigger={
+              <Button
+                color="red"
+                compact
+                content={`$${Math.abs(debt)}`}
+                fluid
+                icon="minus"
+                onClick={(event) => updateDebtOrSave(true)}
+                style={{
+                  display: "inline-block",
+                }}
+              />
+            }
+          />
+        </Button.Group>
+      </div>
 
-      {/* Plus */}
       <Popup
-        content={`Add today's cash to your ${showDebt ? "debt" : "save"}`}
+        content={`Click to see your ledger`}
         trigger={
           <Button
             circular
-            icon="add"
+            icon="book"
             floated="right"
-            onClick={(state) => updateDebtOrSave(showDebt)}
-            style={{ position: "relative", left: "200px" }}
+            onClick={(state) => setOnHomePage(!state)}
+            size="massive"
+            style={{ display: "inline-block", marginTop: "3px" }}
           />
         }
       />

@@ -1,30 +1,28 @@
 import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
-import useMoneyLogic from "./useMoneyLogic";
 
-export default function CashCalculator({ updateCalculatorCash }) {
-  // const { updateCalculatorCash } = useMoneyLogic();
-  const [activeCalculatorButton, setActiveCalculatorButton] = useState(100);
-  const [showMinus, setShowMinus] = useState(false);
-  const buttons = [1, 5, 20, 50, 100];
+export default function CashCalculator({ addCash }) {
+  const [calculatorAmount, setCalculatorAmount] = useState(100);
+  const [minusSignOn, setMinusSignOn] = useState(false);
+  const calculatorButtons = [1, 5, 20, 50, 100];
 
-  const makeCalculatorButton = (value) => {
+  const createCalculatorButton = (buttonAmount) => {
     return (
       <Button
         color={
-          activeCalculatorButton === value
-            ? showMinus
-              ? "red"
-              : "green"
-            : "black"
+          buttonAmount !== calculatorAmount
+            ? "black"
+            : minusSignOn
+            ? "red"
+            : "green"
         }
-        key={value}
+        key={buttonAmount}
         onClick={(state) => {
-          setActiveCalculatorButton(value);
-          updateCalculatorCash(value, showMinus);
+          setCalculatorAmount(buttonAmount);
         }}
+        size="medium"
       >
-        {value}
+        {buttonAmount}
       </Button>
     );
   };
@@ -32,16 +30,35 @@ export default function CashCalculator({ updateCalculatorCash }) {
   return (
     <div>
       <div>
-        <Button
-          color={showMinus ? "red" : "green"}
-          onClick={(event) => setShowMinus(!showMinus)}
-        >
-          {showMinus ? "-" : "+"}
-        </Button>
         <Button.Group>
-          {buttons.map((buttonValue) => makeCalculatorButton(buttonValue))}
+          {calculatorButtons.map((buttonAmount) =>
+            createCalculatorButton(buttonAmount)
+          )}
         </Button.Group>
       </div>
+      <br />
+      <div style={{ position: "relative", textAlign: "center" }}>
+        <Button
+          circular
+          color={minusSignOn ? "red" : "green"}
+          onClick={(event) => addCash(calculatorAmount, minusSignOn)}
+          size="big"
+        >
+          {minusSignOn ? "subtract" : "add"}
+        </Button>
+        <Button
+          circular
+          icon="exchange"
+          onClick={(event) => setMinusSignOn(!minusSignOn)}
+          size="small"
+          style={{
+            position: "absolute",
+            marginLeft: minusSignOn ? "28.75px" : "47.5px",
+            marginTop: "7.5px",
+          }}
+        ></Button>
+      </div>
+      <br />
       <br />
       <br />
     </div>

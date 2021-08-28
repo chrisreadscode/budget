@@ -1,21 +1,23 @@
 import Head from "next/head";
+import { useState } from "react";
 import CashBubble from "../components/CashBubble";
 import CashCalculator from "../components/CashCalculator";
 import DailyCash from "../components/DailyCash";
 import MyHeader from "../components/Header";
 import TopBar from "../components/TopBar";
-import useMoneyLogic from "../components/useMoneyLogic";
+import useLedger from "../components/useLedger";
 
 export default function Home() {
   const {
-    updateCalculatorCash,
+    addCash,
     updateDailyCash,
     updateDebtOrSave,
     cash,
     dailyCash,
     debt,
     save,
-  } = useMoneyLogic();
+  } = useLedger();
+  const [onHomePage, setOnHomePage] = useState(true);
 
   return (
     <div className="container">
@@ -30,10 +32,28 @@ export default function Home() {
 
       <main>
         <MyHeader />
-        <TopBar debt={debt} save={save} updateDebtOrSave={updateDebtOrSave} />
-        <CashBubble cash={cash} />
-        <CashCalculator updateCalculatorCash={updateCalculatorCash} />
-        <DailyCash dailyCash={dailyCash} updateDailyCash={updateDailyCash} />
+        {onHomePage ? (
+          <>
+            <div style={{ position: "relative" }}>
+              <TopBar
+                debt={debt}
+                save={save}
+                setOnHomePage={setOnHomePage}
+                updateDebtOrSave={updateDebtOrSave}
+              />
+            </div>
+            <CashBubble cash={cash} />
+            <CashCalculator addCash={addCash} />
+          </>
+        ) : (
+          <>
+            <DailyCash
+              dailyCash={dailyCash}
+              updateDailyCash={updateDailyCash}
+            />
+          </>
+        )}
+        {/* <SwitchToForm onHomePage={onHomePage} setOnHomePage={setOnHomePage} /> */}
       </main>
 
       <footer>
