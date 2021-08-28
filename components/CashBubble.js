@@ -10,12 +10,11 @@ export default function CashBubble({ cash }) {
       <Segment circular inverted style={squareBubble}>
         <Header as="h1">
           ${cash}
-          <Header sub color={cash < 0 ? "red" : "green"}>
+          <Header sub color={cash < 0 ? "green" : "red"}>
             left today
           </Header>
         </Header>
       </Segment>
-
       <br />
       <br />
     </div>
