@@ -10,12 +10,13 @@ import useLedger from "../components/useLedger";
 export default function Home() {
   const {
     addCash,
+    addDebt,
+    addSavings,
     updateDailyCash,
-    updateDebtOrSave,
     cash,
     dailyCash,
     debt,
-    save,
+    savings,
   } = useLedger();
   const [onHomePage, setOnHomePage] = useState(true);
 
@@ -36,10 +37,11 @@ export default function Home() {
           <>
             <div style={{ position: "relative" }}>
               <TopBar
+                addDebt={addDebt}
+                addSavings={addSavings}
                 debt={debt}
-                save={save}
+                savings={savings}
                 setOnHomePage={setOnHomePage}
-                updateDebtOrSave={updateDebtOrSave}
               />
             </div>
             <CashBubble cash={cash} />

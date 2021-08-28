@@ -2,10 +2,11 @@ import React from "react";
 import { Button, Popup } from "semantic-ui-react";
 
 export default function TopBar({
+  addDebt,
+  addSavings,
   debt,
-  save,
+  savings,
   setOnHomePage,
-  updateDebtOrSave,
 }) {
   return (
     <div style={{ position: "relative", textAlign: "left", width: "275px" }}>
@@ -17,10 +18,10 @@ export default function TopBar({
               <Button
                 color="green"
                 compact
-                content={`$${save}`}
+                content={`$${savings}`}
                 fluid
                 icon="plus"
-                onClick={(event) => updateDebtOrSave(false)}
+                onClick={(event) => addSavings()}
                 style={{ display: "inline-block" }}
               />
             }
@@ -34,7 +35,7 @@ export default function TopBar({
                 content={`$${Math.abs(debt)}`}
                 fluid
                 icon="minus"
-                onClick={(event) => updateDebtOrSave(true)}
+                onClick={(event) => addDebt()}
                 style={{
                   display: "inline-block",
                 }}
