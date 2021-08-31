@@ -40,7 +40,7 @@ export default function useLedger() {
   const addPayment = (e, frequency, ledgerEntryType) => {
     const form = e.target;
 
-    let entry = { frequency, ledgerEntryType };
+    let entry = { date: new Date(), frequency, ledgerEntryType };
     for (let ele of Object.entries(form)) {
       const value = ele[1].value;
       if (value) {
@@ -48,6 +48,7 @@ export default function useLedger() {
         entry[name] = value;
       }
     }
+    console.log(entry);
     setLedger((ledger) => [...ledger, entry]);
   };
 
