@@ -23,12 +23,9 @@ const calculateSavings = (cash, savings) => {
 
 export default function useLedger() {
   const [cash, setCash] = useState(60);
-  const [dailyCash, setDailyCash] = useState("");
   const [debt, setDebt] = useState(-100);
   const [savings, setSavings] = useState(500);
   const [ledger, setLedger] = useState([]);
-
-  console.log(ledger);
 
   const addCash = (amount, minusSignOn) => {
     setCash(calculateCash(cash, amount, minusSignOn));
@@ -60,22 +57,14 @@ export default function useLedger() {
     setSavings(newSavings);
   };
 
-  const updateDailyCash = (e, setDailyCashComponent) => {
-    e.preventDefault();
-
-    setDailyCash(parseInt(e.target.elements[0].value));
-    setDailyCashComponent("");
-  };
-
   return {
     addCash,
     addDebt,
     addPayment,
     addSavings,
-    updateDailyCash,
     cash,
-    dailyCash,
     debt,
+    ledger,
     savings,
   };
 }

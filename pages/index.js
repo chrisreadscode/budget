@@ -3,6 +3,7 @@ import { useState } from "react";
 import AddRecurringPayment from "../components/AddRecurringPayment";
 import CashBubble from "../components/CashBubble";
 import CashCalculator from "../components/CashCalculator";
+import DisplayLedger from "../components/DisplayLedger";
 import MyHeader from "../components/Header";
 import NavBarLedger from "../components/NavBarLedger";
 import ToggleLedger from "../components/ToggleLedger";
@@ -15,8 +16,8 @@ export default function Home() {
     addPayment,
     addSavings,
     cash,
-    dailyCash,
     debt,
+    ledger,
     savings,
   } = useLedger();
   const [onHomePage, setOnHomePage] = useState(true);
@@ -62,7 +63,9 @@ export default function Home() {
                 setOnHomePage={setOnHomePage}
               />
             </div>
-            {revealLedger ? null : (
+            {revealLedger ? (
+              <DisplayLedger ledger={ledger} />
+            ) : (
               <AddRecurringPayment addPayment={addPayment} />
             )}
             <ToggleLedger
