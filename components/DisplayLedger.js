@@ -11,7 +11,7 @@ export default function DisplayLedger({ ledger }) {
 
   const makeRow = (entry) => {
     return (
-      <Segment.Group horizontal>
+      <Segment.Group horizontal fluid>
         <Segment>{entry.date.toLocaleTimeString()}</Segment>
         <Segment>{entry.title}</Segment>
         <Segment>{entry.amount}</Segment>
@@ -22,7 +22,7 @@ export default function DisplayLedger({ ledger }) {
 
   return (
     <div>
-      {income.length > 0 ||
+      {/* {income.length > 0 ||
       payment.length > 0 ||
       dailyCashRelease.length > 0 ? (
         <Segment.Group horizontal>
@@ -31,7 +31,9 @@ export default function DisplayLedger({ ledger }) {
           <Segment>Amount</Segment>
           <Segment>Frequency</Segment>
         </Segment.Group>
-      ) : null}
+      ) : null} */}
+      <br />
+      <br />
       {dailyCashRelease.map((entry) => makeRow(entry))}
       {income.map((entry) => makeRow(entry))}
       {payment.map((entry) => makeRow(entry))}

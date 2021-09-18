@@ -1,16 +1,20 @@
 import React from "react";
 import { Button, Popup } from "semantic-ui-react";
+import ToggleLedger from "./ToggleLedger";
 
 export default function NavBarLedger({
   addDebt,
   addSavings,
   debt,
+  revealLedger,
+  setRevealLedger,
   savings,
   onHomePage,
   setOnHomePage,
 }) {
   return (
-    <div style={{ position: "relative", textAlign: "left", width: "275px" }}>
+    {revealLedger ?
+    (<div style={{ position: "relative", textAlign: "left", width: "275px" }}>
       <div style={{ display: "inline-block", width: "125px" }}>
         <Button.Group vertical>
           <Popup
@@ -45,7 +49,9 @@ export default function NavBarLedger({
           />
         </Button.Group>
       </div>
-
+      </div>) :
+      <ToggleLedger/>}
+    <div>
       <Popup
         content={
           onHomePage ? "Click to see your ledger" : "Click to see your homepage"

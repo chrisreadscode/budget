@@ -6,7 +6,7 @@ import CashCalculator from "../components/CashCalculator";
 import DisplayLedger from "../components/DisplayLedger";
 import MyHeader from "../components/Header";
 import NavBarLedger from "../components/NavBarLedger";
-import ToggleLedger from "../components/ToggleLedger";
+// import ToggleLedger from "../components/ToggleLedger";
 import useLedger from "../components/useLedger";
 
 export default function Home() {
@@ -58,6 +58,8 @@ export default function Home() {
                 addDebt={addDebt}
                 addSavings={addSavings}
                 debt={debt}
+                revealLedger={revealLedger}
+                setRevealLedger={setRevealLedger}
                 savings={savings}
                 onHomePage={onHomePage}
                 setOnHomePage={setOnHomePage}
@@ -68,10 +70,10 @@ export default function Home() {
             ) : (
               <AddRecurringPayment addPayment={addPayment} />
             )}
-            <ToggleLedger
+            {/* <ToggleLedger
               revealLedger={revealLedger}
               setRevealLedger={setRevealLedger}
-            />
+            /> */}
           </>
         )}
       </main>
