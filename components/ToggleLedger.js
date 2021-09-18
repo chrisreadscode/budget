@@ -1,22 +1,27 @@
 import React from "react";
 import { Button, Popup } from "semantic-ui-react";
 
-export default function ToggleLedger({ revealLedger, setRevealLedger }) {
+export default function ToggleLedger({
+  revealLedger,
+  setRevealLedger,
+  revealRecurringPayment,
+  setRevealRecurringPayment,
+}) {
   return (
     <div>
-      <br />
-      <br />
       <Popup
         content={
-          revealLedger
-            ? "Click to enter a recurring payment"
-            : "Click to see your ledger"
+          revealRecurringPayment
+            ? "Click to see your ledger"
+            : "Click to enter a recurring payment"
         }
         trigger={
           <Button
             circular
-            icon={revealLedger ? "plus" : "list"}
-            onClick={(state) => setRevealLedger(!revealLedger)}
+            icon={revealRecurringPayment ? "list" : "plus"}
+            onClick={(state) =>
+              setRevealRecurringPayment(!revealRecurringPayment)
+            }
             size="massive"
           />
         }
@@ -24,3 +29,6 @@ export default function ToggleLedger({ revealLedger, setRevealLedger }) {
     </div>
   );
 }
+
+// revealRecurringPayment,
+// setRevealRecurringPayment,

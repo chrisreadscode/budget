@@ -6,7 +6,6 @@ import CashCalculator from "../components/CashCalculator";
 import DisplayLedger from "../components/DisplayLedger";
 import MyHeader from "../components/Header";
 import NavBarLedger from "../components/NavBarLedger";
-// import ToggleLedger from "../components/ToggleLedger";
 import useLedger from "../components/useLedger";
 
 export default function Home() {
@@ -22,6 +21,7 @@ export default function Home() {
   } = useLedger();
   const [onHomePage, setOnHomePage] = useState(true);
   const [revealLedger, setRevealLedger] = useState(true);
+  const [revealRecurringPayment, setRevealRecurringPayment] = useState(false);
 
   return (
     <div className="container">
@@ -60,20 +60,18 @@ export default function Home() {
                 debt={debt}
                 revealLedger={revealLedger}
                 setRevealLedger={setRevealLedger}
+                revealRecurringPayment={revealRecurringPayment}
+                setRevealRecurringPayment={setRevealRecurringPayment}
                 savings={savings}
                 onHomePage={onHomePage}
                 setOnHomePage={setOnHomePage}
               />
             </div>
-            {revealLedger ? (
+            {!revealRecurringPayment ? (
               <DisplayLedger ledger={ledger} />
             ) : (
               <AddRecurringPayment addPayment={addPayment} />
             )}
-            {/* <ToggleLedger
-              revealLedger={revealLedger}
-              setRevealLedger={setRevealLedger}
-            /> */}
           </>
         )}
       </main>
