@@ -2,8 +2,6 @@ import React from "react";
 import { Button, Popup } from "semantic-ui-react";
 
 export default function ToggleLedger({
-  revealLedger,
-  setRevealLedger,
   revealRecurringPayment,
   setRevealRecurringPayment,
 }) {
@@ -18,7 +16,8 @@ export default function ToggleLedger({
         trigger={
           <Button
             circular
-            icon={revealRecurringPayment ? "list" : "plus"}
+            floated="right"
+            icon={revealRecurringPayment ? "x" : "plus"}
             onClick={(state) =>
               setRevealRecurringPayment(!revealRecurringPayment)
             }
@@ -29,6 +28,3 @@ export default function ToggleLedger({
     </div>
   );
 }
-
-// revealRecurringPayment,
-// setRevealRecurringPayment,

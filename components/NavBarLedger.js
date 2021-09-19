@@ -16,9 +16,24 @@ export default function NavBarLedger({
 }) {
   return (
     <div style={{ position: "relative", textAlign: "left", width: "275px" }}>
-      <div style={{ display: "inline-block", width: "125px" }}>
+      <Popup
+        content={
+          onHomePage ? "Click to see your ledger" : "Click to see your homepage"
+        }
+        trigger={
+          <Button
+            circular
+            icon={onHomePage ? "book" : "calculator"}
+            floated="left"
+            onClick={(state) => setOnHomePage(!onHomePage)}
+            size="massive"
+            style={{ display: "inline-block", marginTop: "3px" }}
+          />
+        }
+      />
+      <div style={{ display: "inline-block", float: "right", width: "125px" }}>
         {!revealLedger ? (
-          <Button.Group vertical>
+          <Button.Group floated="right" vertical>
             <Popup
               content={`Total Savings: Click to Add Left Today's Amount`}
               trigger={
@@ -52,28 +67,11 @@ export default function NavBarLedger({
           </Button.Group>
         ) : (
           <ToggleLedger
-            revealLedger={revealLedger}
-            setRevealLedger={setRevealLedger}
             revealRecurringPayment={revealRecurringPayment}
             setRevealRecurringPayment={setRevealRecurringPayment}
           />
         )}
       </div>
-      <Popup
-        content={
-          onHomePage ? "Click to see your ledger" : "Click to see your homepage"
-        }
-        trigger={
-          <Button
-            circular
-            icon={onHomePage ? "book" : "calculator"}
-            floated="right"
-            onClick={(state) => setOnHomePage(!onHomePage)}
-            size="massive"
-            style={{ display: "inline-block", marginTop: "3px" }}
-          />
-        }
-      />
     </div>
   );
 }

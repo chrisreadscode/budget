@@ -90,7 +90,7 @@ export default function AddRecurringPayment({ addPayment }) {
         />
         <br />
         <Button fluid type="submit">
-          {`Add Recurring ${ledgerEntryType}`}
+          {`Add ${ledgerEntryType}`}
         </Button>
       </Form>
     </div>
