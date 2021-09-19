@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 
 export default function DisplayLedger({ ledger }) {
   const income = ledger["income"];
@@ -11,32 +11,41 @@ export default function DisplayLedger({ ledger }) {
 
   const makeRow = (entry) => {
     return (
-      <Segment.Group horizontal fluid>
-        <Segment>{entry.date.toLocaleTimeString()}</Segment>
-        <Segment>{entry.title}</Segment>
-        <Segment>{entry.amount}</Segment>
-        <Segment>{entry.frequency}</Segment>
-      </Segment.Group>
+      <Table.Row>
+        <Table.Cell>{entry.date.toLocaleTimeString()}</Table.Cell>
+        <Table.Cell>${entry.amount}</Table.Cell>
+        <Table.Cell>{entry.title}</Table.Cell>
+        <Table.Cell>{entry.frequency}</Table.Cell>
+      </Table.Row>
     );
   };
 
   return (
     <div>
-      {/* {income.length > 0 ||
-      payment.length > 0 ||
-      dailyCashRelease.length > 0 ? (
-        <Segment.Group horizontal>
-          <Segment>Date</Segment>
-          <Segment>Category</Segment>
-          <Segment>Amount</Segment>
-          <Segment>Frequency</Segment>
-        </Segment.Group>
-      ) : null} */}
       <br />
       <br />
-      {dailyCashRelease.map((entry) => makeRow(entry))}
-      {income.map((entry) => makeRow(entry))}
-      {payment.map((entry) => makeRow(entry))}
+      <Table definition>
+        <Table.Header>
+          <Table.HeaderCell textAlign="center">
+            Daily Cash Release
+          </Table.HeaderCell>
+        </Table.Header>
+        {dailyCashRelease.map((entry) => makeRow(entry))}
+      </Table>
+      <Table celled>
+        <Table.Header>
+          <Table.HeaderCell textAlign="center">Incomes</Table.HeaderCell>
+        </Table.Header>
+        {income.map((entry) => makeRow(entry))}
+      </Table>
+      <Table celled>
+        <Table.Header>
+          <Table.HeaderCell textAlign="center" width={1}>
+            Payments
+          </Table.HeaderCell>
+        </Table.Header>
+        {payment.map((entry) => makeRow(entry))}
+      </Table>
     </div>
   );
 }
